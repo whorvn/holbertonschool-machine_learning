@@ -1,9 +1,20 @@
 #!/usr/bin/env python3
+""" Transpose function to check a new matrix transposed"""
+
+
 def matrix_transpose(matrix):
-    transposed = []
-    for i in range(len(matrix[0])):
-        row = []
-        for j in range(len(matrix)):
-            row.append(matrix[j][i])
-        transposed.append(row)
-    return transposed
+    """ return a new matrix transposed
+
+    Args:
+        matrix: given list
+
+    Return:
+        new_matrix: Transposed matrix
+
+    """
+    if type(matrix[0]) != list:
+        return [len(matrix)]
+    else:
+        new_matrix = [[matrix[j][i] for j in range(len(matrix))]
+                      for i in range(len(matrix[0]))]
+    return new_matrix
