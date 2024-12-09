@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 import numpy as np
 
-
 """
-This module contains a function to perform matrix multiplication using NumPy's
-matmul function. It takes two matrices (NumPy ndarrays) as input and returns
-their product.
-"""
+This module provides utilities for performing mathematical operations
+on matrices using NumPy. It includes functions to multiply matrices
+efficiently.
 
+Functions:
+- np_matmul(mat1, mat2): Multiplies two matrices and returns the result.
+"""
 
 def np_matmul(mat1, mat2):
     """
