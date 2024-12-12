@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def all_in_one():
 
     y0 = np.arange(0, 11) ** 3
@@ -64,7 +65,6 @@ def all_in_one():
     plt.plot(x3, y32, c='green', label='Ra-226')
     plt.legend()
 
-
     # histogram plot
     ax5 = fig.add_subplot(grid[2, :2])
     bins = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
@@ -77,4 +77,3 @@ def all_in_one():
     plt.xticks(np.arange(0, 110, 10))
 
     plt.show()
-    
