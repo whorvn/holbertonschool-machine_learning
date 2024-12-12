@@ -12,14 +12,12 @@ def bars():
 
     # your code here
     people = ['Farrah', 'Fred', 'Felicia']
-
     fruit_names = {
         'apples': 'red',
         'bananas': 'yellow',
         'oranges': '#ff8000',
         'peaches': '#ffe5b4'
     }
-
     i = 0
     for name, color in sorted(fruit_names.items()):
         bottom = 0
