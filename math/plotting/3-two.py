@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+"""docstring for"""
 import numpy as np
 import matplotlib.pyplot as plt
 
 
 def two():
-
+    """docstring for"""
     x = np.arange(0, 21000, 1000)
     r = np.log(0.5)
     t1 = 5730
