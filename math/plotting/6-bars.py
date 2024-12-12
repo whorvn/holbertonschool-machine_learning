@@ -13,7 +13,6 @@ def bars():
     # your code here
     people = ['Farrah', 'Fred', 'Felicia']
 
-
     fruit_names = {
         'apples': 'red',
         'bananas': 'yellow',
