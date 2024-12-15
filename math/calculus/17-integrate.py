@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"doc"
+"documentation"
 
 
 def poly_integral(poly, C=0):
