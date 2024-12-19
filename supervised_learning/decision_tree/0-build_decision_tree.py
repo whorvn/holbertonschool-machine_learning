@@ -27,24 +27,24 @@ class Node:
 
 
 class Leaf(Node):
-    """doc"""
+    """documentation for Leaf"""
     def __init__(self, value, depth=None):
-        """doc"""
+        """documentation for Leaf"""
         super().__init__()
         self.value = value
         self.is_leaf = True
         self.depth = depth
 
     def max_depth_below(self):
-        """doc"""
+        """documentation for Leaf"""
         return self.depth
 
 
 class Decision_Tree():
-    """doc"""
+    """documentation for Leaf"""
     def __init__(self, max_depth=10, min_pop=1, seed=0,
                  split_criterion="random", root=None):
-        """doc"""
+        """documentation for Leaf"""
         self.rng = np.random.default_rng(seed)
         if root:
             self.root = root
@@ -58,5 +58,5 @@ class Decision_Tree():
         self.predict = None
 
     def depth(self):
-        """doc"""
+        """documentation for Leaf"""
         return self.root.max_depth_below()
