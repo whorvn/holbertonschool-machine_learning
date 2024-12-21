@@ -2,7 +2,6 @@
 
 class Node:
     """A class representing a node in a decision tree.
-
     Contains information about the splitting feature, threshold value,
     and references to child nodes.
     """
@@ -38,14 +37,13 @@ class Node:
         """
         if only_leaves:
             return (self.left_child.count_nodes_below(only_leaves=True) +
-                   self.right_child.count_nodes_below(only_leaves=True))
+                    self.right_child.count_nodes_below(only_leaves=True))
         return (1 + self.left_child.count_nodes_below(only_leaves=False) +
-               self.right_child.count_nodes_below(only_leaves=False))
+                    self.right_child.count_nodes_below(only_leaves=False))
 
 
 class Leaf:
     """A class representing a leaf node in a decision tree.
-
     Contains the predicted value for instances reaching this leaf.
     """
 
@@ -74,7 +72,6 @@ class Leaf:
 
 class DecisionTree:
     """A class representing a complete decision tree.
-
     Manages the root node and provides tree-level operations.
     """
 
