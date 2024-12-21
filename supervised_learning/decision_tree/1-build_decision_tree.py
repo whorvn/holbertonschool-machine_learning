@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 class Node:
     """
     Represents an internal node in a decision tree.
@@ -15,7 +14,8 @@ class Node:
         is_leaf (bool): Always False for internal nodes.
     """
 
-    def __init__(self, feature, threshold, left_child, right_child, depth=0, is_root=False):
+    def __init__(self, feature=None, threshold=None, left_child=None,
+                 right_child=None, depth=0, is_root=False):
         self.feature = feature
         self.threshold = threshold
         self.left_child = left_child
@@ -39,7 +39,6 @@ class Node:
                     self.right_child.count_nodes_below(only_leaves=True))
         return (1 + self.left_child.count_nodes_below(only_leaves=False) +
                 self.right_child.count_nodes_below(only_leaves=False))
-
 
 
 class Leaf:
