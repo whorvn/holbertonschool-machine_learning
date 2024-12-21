@@ -58,7 +58,8 @@ class Leaf:
 
     def count_nodes_below(self, only_leaves=False):
         """
-        Count nodes below this leaf. Always returns 1 as leaves have no children.
+        Count nodes below this leaf. Always returns
+        1 as leaves have no children.
 
         Args:
             only_leaves (bool): Ignored for leaves.
@@ -82,7 +83,8 @@ class Decision_Tree:
 
     def count_nodes(self, only_leaves=False):
         """
-        Count nodes in the decision tree, including or excluding internal nodes.
+        Count nodes in the decision tree, including
+        or excluding internal nodes.
 
         Args:
             only_leaves (bool): Whether to count only leaf nodes.
