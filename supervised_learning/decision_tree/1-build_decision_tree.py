@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 class Node:
     """
     Represents an internal node in a decision tree.
@@ -36,6 +39,7 @@ class Node:
                     self.right_child.count_nodes_below(only_leaves=True))
         return (1 + self.left_child.count_nodes_below(only_leaves=False) +
                 self.right_child.count_nodes_below(only_leaves=False))
+
 
 
 class Leaf:
