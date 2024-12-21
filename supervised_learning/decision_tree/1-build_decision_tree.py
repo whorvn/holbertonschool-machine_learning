@@ -2,7 +2,7 @@
 
 class Node:
     """A class representing a node in a decision tree.
-    
+
     Contains information about the splitting feature, threshold value,
     and references to child nodes.
     """
@@ -45,7 +45,7 @@ class Node:
 
 class Leaf:
     """A class representing a leaf node in a decision tree.
-    
+
     Contains the predicted value for instances reaching this leaf.
     """
 
@@ -72,9 +72,9 @@ class Leaf:
         return 1
 
 
-class Decision_Tree:
+class DecisionTree:
     """A class representing a complete decision tree.
-    
+
     Manages the root node and provides tree-level operations.
     """
 
