@@ -16,6 +16,12 @@ class Node:
 
     def __init__(self, feature=None, threshold=None, left_child=None,
                  right_child=None, depth=0, is_root=False):
+        """
+    Represents a decision tree.
+
+    Attributes:
+        root (Node or Leaf): The root node of the decision tree.
+    """
         self.feature = feature
         self.threshold = threshold
         self.left_child = left_child
@@ -52,6 +58,12 @@ class Leaf:
     """
 
     def __init__(self, value, depth=0):
+        """
+    Represents a decision tree.
+
+    Attributes:
+        root (Node or Leaf): The root node of the decision tree.
+    """
         self.value = value
         self.depth = depth
         self.is_leaf = True
@@ -79,6 +91,12 @@ class Decision_Tree:
     """
 
     def __init__(self, root):
+        """
+    Represents a decision tree.
+
+    Attributes:
+        root (Node or Leaf): The root node of the decision tree.
+    """
         self.root = root
 
     def count_nodes(self, only_leaves=False):
