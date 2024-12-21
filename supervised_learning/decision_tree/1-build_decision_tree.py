@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 "documentation of task1"
 
+
 class Node:
     """
     Represents an internal node in a decision tree.
