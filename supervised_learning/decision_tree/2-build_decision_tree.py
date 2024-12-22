@@ -1,95 +1,143 @@
 #!/usr/bin/env python3
 """
-Defines classes for constructing and managing a decision tree.
-
-Includes Node, Leaf, and Decision_Tree classes with pretty-printing
-support for tree structure visualization.
+Module implémentant les classes pour construire et
+manipuler un arbre de décision.
 """
 
-
-def left_child_add_prefix(text):
-    """
-    Adds a left child prefix to the provided text.
-    """
-    lines = text.split("\n")
-    new_text = "    +---> " + lines[0] + "\n"
-    for line in lines[1:]:
-        new_text += "    |      " + line + "\n"
-    return new_text
-
-
-def right_child_add_prefix(text):
-    """
-    Adds a right child prefix to the provided text.
-    """
-    lines = text.split("\n")
-    new_text = "    +---> " + lines[0] + "\n"
-    for line in lines[1:]:
-        new_text += "           " + line + "\n"
-    return new_text
+import numpy as np
 
 
 class Node:
     """
-    Represents an internal node in a decision tree.
+    Classe représentant un nœud dans un arbre de décision.
     """
 
     def __init__(self, feature=None, threshold=None, left_child=None,
-                 right_child=None, depth=0, is_root=False):
+                 right_child=None, is_root=False, depth=0):
         """
-        Initializes a decision tree node.
+        Initialise un nœud de l'arbre de décision.
+
+        Args:
+            feature (int, optional): L'indice de la caractéristique utilisée.
+            threshold (float, optional): La valeur seuil pour la division.
+            left_child (Node, optional): L'enfant gauche du nœud.
+            right_child (Node, optional): L'enfant droit du nœud.
+            is_root (bool, optional): Indique si le nœud est la racine.
+            depth (int, optional): La profondeur du nœud dans l'arbre.
         """
         self.feature = feature
         self.threshold = threshold
         self.left_child = left_child
         self.right_child = right_child
-        self.depth = depth
-        self.is_root = is_root
         self.is_leaf = False
-
-    def __str__(self):
-        """
-        Returns a string representation of the node and its children.
-        """
-        text = f"node [feature={self.feature}, threshold={self.threshold}]"
-        left_str = left_child_add_prefix(str(self.left_child))
-        right_str = right_child_add_prefix(str(self.right_child))
-        return text + "\n" + left_str + right_str
-
-
-class Leaf:
-    """
-    Represents a leaf node in a decision tree.
-    """
-
-    def __init__(self, value, depth=0):
-        """
-        Initializes a leaf node.
-        """
-        self.value = value
+        self.is_root = is_root
+        self.sub_population = None
         self.depth = depth
-        self.is_leaf = True
+
+    def left_child_add_prefix(self, text):
+        """
+        Ajoute les préfixes pour l'enfant gauche.
+
+        Args:
+            Représentation textuelle de l'enfant gauche.
+
+        Return:
+            Texte avec préfixes ajoutés.
+        """
+        lines = text.split("\n")
+        new_text = "    +--" + lines[0] + "\n"
+        for x in lines[1:]:
+            new_text += "    |  " + x + "\n"
+        return new_text
+
+    def right_child_add_prefix(self, text):
+        """
+        Ajoute les préfixes pour l'enfant droit.
+
+        Args:
+            Représentation textuelle de l'enfant droit.
+
+        Return:
+            Texte avec préfixes ajoutés.
+        """
+        lines = text.split("\n")
+        new_text = "    +--" + lines[0] + "\n"
+        for x in lines[1:]:
+            new_text += "       " + x + "\n"
+        return new_text
 
     def __str__(self):
         """
-        Returns a string representation of the leaf.
+        Return:
+            Représentation textuelle du nœud.
+        """
+        node_type = "root" if self.is_root else "node"
+        details = f"{node_type} [feature={self.feature},"
+        details += f" threshold={self.threshold}]\n"
+
+        if self.left_child:
+            left_str = self.left_child.__str__().replace("\n", "\n    |  ")
+            details += f"    +---> {left_str}"
+
+        if self.right_child:
+            right_str = self.right_child.__str__().replace("\n", "\n       ")
+            details += f"\n    +---> {right_str}"
+
+        return details.rstrip()
+
+
+class Leaf(Node):
+    """
+    Classe représentant une feuille dans un arbre de décision.
+    """
+
+    def __init__(self, value, depth=None):
+        """
+        Initialise une feuille de l'arbre de décision.
+
+        Args:
+            value: La valeur de prédiction de la feuille.
+            depth (int, optional): La profondeur de la feuille dans l'arbre.
+        """
+        super().__init__()
+        self.value = value
+        self.is_leaf = True
+        self.depth = depth
+
+    def __str__(self):
+        """
+        Return:
+            Représentation textuelle de la feuille.
         """
         return f"leaf [value={self.value}]"
 
 
 class Decision_Tree:
     """
-    Represents a decision tree with a root node.
+    Classe représentant un arbre de décision complet.
     """
 
-    def __init__(self, root):
+    def __init__(self, max_depth=10, min_pop=1, seed=0,
+                 split_criterion="random", root=None):
         """
-        Initializes the decision tree.
+        Initialise un arbre de décision.
+
+        Args:
+            max_depth (int): Profondeur maximale de l'arbre.
+            min_pop (int): Population minimale pour un nœud.
+            seed (int): Graine pour la reproduction des résultats.
+            split_criterion (str): Critère de division des nœuds.
+            root (Node, optional): Nœud racine de l'arbre.
         """
-        self.root = root
+        self.rng = np.random.default_rng(seed)
+        if root:
+            self.root = root
+        else:
+            self.root = Node(is_root=True)
 
     def __str__(self):
         """
-        Returns a string representation of the entire decision tree.
+        Return:
+            Représentation textuelle complète de l'arbre.
         """
-        return f"root {str(self.root)}"
+        return self.root.__str__() + "\n"
