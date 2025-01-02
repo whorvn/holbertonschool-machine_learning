@@ -53,7 +53,7 @@ class Neuron:
         __A is the activated output of the neuron
         """
         return (self.__A)
-    
+
     def forward_prop(self, X):
         """
         documentation documentation
