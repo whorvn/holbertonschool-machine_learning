@@ -2,7 +2,7 @@
 
 import numpy as np
 
-Neuron = __import__('0-neuron').Neuron
+Neuron = __import__('supervised_learning/classification/0-neuron').Neuron
 
 lib_train = np.load('supervised_learning/classification/data/Binary_Train.npz')
 
