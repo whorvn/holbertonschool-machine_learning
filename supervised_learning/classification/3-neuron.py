@@ -53,7 +53,7 @@ class Neuron:
         __A is the activated output of the neuron
         """
         return (self.__A)
-    
+
     def forward_prop(self, X):
         """
         documentation documentation
@@ -63,7 +63,7 @@ class Neuron:
         z = np.matmul(self.W, X) + self.b
         self.__A = 1 / (1 + (np.exp(-z)))
         return (self.A)
-        
+  
     def cost(self, Y, A):
         """
         documentation documentation
