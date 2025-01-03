@@ -66,3 +66,10 @@ class Neuron:
         
     def cost(self, Y, A):
         """
+        documentation documentation
+        documentation documentation
+        documentation documentation
+        """
+        m = Y.shape[1]
+        cost = -np.sum((Y * np.log(A)) + ((1 - Y) * np.log(1.0000001 - A))) / m
+        return (cost)
