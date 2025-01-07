@@ -8,13 +8,14 @@
 
 import numpy as np
 
+
 class NeuralNetwork:
     """
     Documentation documentation
     Documentation documentation
     Documentation documentation
     """
-    
+
     def __init__(self, nx, nodes):
         """
         Documentation documentation
