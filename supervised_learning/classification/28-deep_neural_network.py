@@ -28,7 +28,7 @@ class DeepNeuralNetwork:
          - cache: A dictionary to hold all intermediary values of the network.
          - weights: A dictionary to hold all weights and biased of the network.
         """
-        if type(nx) is not int:
+        if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
             raise ValueError("nx must be a positive integer")
