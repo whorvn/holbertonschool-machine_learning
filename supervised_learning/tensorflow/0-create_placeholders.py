@@ -2,8 +2,7 @@
 """Defining placeholders for the network"""
 
 
-import tensorflow as tf
-import numpy as np
+import tensorflow.compat.v1 as tf
 
 
 def create_placeholders(nx, classes):
