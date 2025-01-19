@@ -5,7 +5,7 @@ cross-entropy loss of a prediction
 """
 
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 
 def calculate_loss(y, y_pred):
