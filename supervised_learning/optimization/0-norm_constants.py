@@ -5,11 +5,13 @@ using Keras library
 """
 
 
-import tensorflow.keras as K
+import numpy as np
 
 
 def normalization_constants(X):
     """
     calculates the normalization (standardization) constants of a matrix
     """
-    return X.mean(axis=0), X.std(axis=0)
+    mean = np.mean(X, axis=0)
+    std = np.std(X, axis=0)
+    return mean, std
