@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-Defines a function that builds a neural network
-using Keras library
-"""
+"""Module for creating mini-batches"""
 
 
 import numpy as np
@@ -10,19 +7,45 @@ import numpy as np
 
 def create_mini_batches(X, Y, batch_size):
     """
-    creates mini batches from a dataset
+    Creates mini-batches from dataset
+    Args:
+        X: numpy.ndarray of shape (m, nx)
+        Y: numpy.ndarray of shape (m, ny)
+        batch_size: size of each mini-batch
+    Returns:
+        list of tuples (X_mini, Y_mini)
     """
+    m = X.shape[0]
+    
+    # Input validation
+    if not isinstance(batch_size, int) or batch_size <= 0:
+        return None
+    
+    # Shuffle data
     shuffle_data = __import__('2-shuffle_data').shuffle_data
-    X, Y = shuffle_data(X, Y)
+    X_shuffled, Y_shuffled = shuffle_data(X, Y)
+    
+    # Initialize mini-batches list
     mini_batches = []
-    shuffle = np.random.permutation(m)
-    complete_batches = m // batch_size
-    for i in range(complete_batches):
-        X_mini = X[i * batch_size:(i + 1) * batch_size]
-        Y_mini = Y[i * batch_size:(i + 1) * batch_size]
-        mini_batches.append((X_mini, Y_mini))
+    
+    # Calculate complete batches
+    n_complete = m // batch_size
+    
+    # Create complete mini-batches
+    for i in range(n_complete):
+        start_idx = i * batch_size
+        end_idx = start_idx + batch_size
+        mini_batches.append((
+            X_shuffled[start_idx:end_idx],
+            Y_shuffled[start_idx:end_idx]
+        ))
+    
+    # Handle remaining samples
     if m % batch_size != 0:
-        X_mini = X[complete_batches * batch_size:]
-        Y_mini = Y[complete_batches * batch_size:]
-        mini_batches.append((X_mini, Y_mini))
+        start_idx = n_complete * batch_size
+        mini_batches.append((
+            X_shuffled[start_idx:],
+            Y_shuffled[start_idx:]
+        ))
+    
     return mini_batches
