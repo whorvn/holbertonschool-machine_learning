@@ -16,21 +16,21 @@ def create_mini_batches(X, Y, batch_size):
         list of tuples (X_mini, Y_mini)
     """
     m = X.shape[0]
-    
+
     # Input validation
     if not isinstance(batch_size, int) or batch_size <= 0:
         return None
-    
+
     # Shuffle data
     shuffle_data = __import__('2-shuffle_data').shuffle_data
     X_shuffled, Y_shuffled = shuffle_data(X, Y)
-    
+
     # Initialize mini-batches list
     mini_batches = []
-    
+
     # Calculate complete batches
     n_complete = m // batch_size
-    
+
     # Create complete mini-batches
     for i in range(n_complete):
         start_idx = i * batch_size
@@ -39,7 +39,7 @@ def create_mini_batches(X, Y, batch_size):
             X_shuffled[start_idx:end_idx],
             Y_shuffled[start_idx:end_idx]
         ))
-    
+
     # Handle remaining samples
     if m % batch_size != 0:
         start_idx = n_complete * batch_size
@@ -47,5 +47,5 @@ def create_mini_batches(X, Y, batch_size):
             X_shuffled[start_idx:],
             Y_shuffled[start_idx:]
         ))
-    
+
     return mini_batches
