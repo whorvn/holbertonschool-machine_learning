@@ -27,4 +27,3 @@ def moving_average(data, beta):
         prev_avg = moving_avg
 
     return moving_averages
-    
