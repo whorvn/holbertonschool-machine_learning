@@ -2,7 +2,7 @@
 """Module for creating mini-batches"""
 
 
-import tenserflow as tf 
+import tensorflow as tf 
 
 
 def create_Adam_op(alpha, beta1, beta2, epsilon):
