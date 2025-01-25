@@ -15,7 +15,8 @@ def create_RMSProp_op(alpha, beta2, epsilon):
         epsilon (float): A small number to avoid division by zero.
 
     Returns:
-        optimizer: A TensorFlow RMSProp optimizer configured with the given parameters.
+        optimizer: A TensorFlow RMSProp optimizer configured
+        with the given parameters.
     """
     optimizer = tf.keras.optimizers.RMSprop(
         learning_rate=alpha,
