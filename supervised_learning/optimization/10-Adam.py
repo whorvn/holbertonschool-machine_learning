@@ -6,7 +6,8 @@ import tenserflow as tf
 
 
 def create_Adam_op(alpha, beta1, beta2, epsilon):
-    """Creates the training operation for a neural network in tensorflow using
+    """Creates the training operation for a neural network in
+    tensorflow using
     the Adam optimization algorithm.
     Args:
         alpha: the learning rate.
