@@ -20,10 +20,8 @@ def learning_rate_decay(alpha, decay_rate, decay_step):
     Returns:
         tf.Tensor: The learning rate decay operation.
     """
-    global_step = tf.train.get_or_create_global_step()
     learning_rate = tf.train.inverse_time_decay(
         learning_rate=alpha,
-        global_step=global_step,
         decay_steps=decay_step,
         decay_rate=decay_rate,
         staircase=True
