@@ -2,7 +2,6 @@
 """Module for creating mini-batches"""
 
 
-import numpy as np
 import tensorflow as tf
 
 
