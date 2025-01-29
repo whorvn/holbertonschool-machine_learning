@@ -1,4 +1,4 @@
-supervised_learning/error_analysis/2-precision.py#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 documentation documentation documentation
 """
