@@ -28,6 +28,6 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     for i in range(h):
         for j in range(w):
             new_img[:, i, j] = (images[:, i * sh:i * sh + kh,
-                                        j * sw:j * sw + kw] * kernel).sum(axis=(1, 2))
+                                j * sw:j * sw + kw] * kernel).sum(axis=(1, 2))
 
     return new_img
