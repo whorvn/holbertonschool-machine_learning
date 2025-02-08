@@ -6,7 +6,7 @@ documentation documentation"""
 import numpy as np
 
 
-def convolve_channels(images, kernel, padding='same', stride=(1, 1)): 
+def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     """documentation"""
     m, h, w, c = images.shape
     kh, kw, kc = kernel.shape
@@ -28,6 +28,6 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     for i in range(h):
         for j in range(w):
             new_img[:, i, j] = (images[:, i * sh:i * sh + kh,
-                                j * sw:j * sw + kw] * kernel).sum(axis=(1, 2, 3))
+                            j * sw:j * sw + kw] * kernel).sum(axis=(1, 2, 3))
 
     return new_img
