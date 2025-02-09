@@ -6,7 +6,6 @@ documentation documentation"""
 import numpy as np
 
 
-
 def pool(images, kernel_shape, stride, mode='max'):
     """documentation documentation
     documentation documentation"""
