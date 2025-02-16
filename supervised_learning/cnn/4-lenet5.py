@@ -1,8 +1,9 @@
-import tensorflow as tf
-
 #!/usr/bin/env python3
 """documentation documentation
 documentation documentation"""
+
+
+import tensorflow.compat.v1 as tf
 
 
 def lenet5(X, Y):
