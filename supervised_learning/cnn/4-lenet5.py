@@ -6,7 +6,7 @@ documentation documentation"""
 import tensorflow.compat.v1 as tf
 
 
-def lenet5(X, Y):
+def lenet5(x, y):
     """documentation documentation
     documentation documentation"""
     init = tf.keras.initializers.VarianceScaling(scale=2.0)
