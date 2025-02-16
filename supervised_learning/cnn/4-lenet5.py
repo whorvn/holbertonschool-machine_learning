@@ -30,4 +30,4 @@ def lenet5(X, Y):
     correct_prediction = tf.equal(tf.argmax(y_pred, 1), tf.argmax(Y, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
     
-    return y_pred, train_op, {'accuracy': accuracy}
+    return y_pred, train_op, loss, accuracy
