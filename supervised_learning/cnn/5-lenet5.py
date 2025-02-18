@@ -6,7 +6,7 @@ documentation documentation"""
 from tensorflow import keras as K
 
 
-def lenet5(x, y):
+def lenet5(X):
     """Documentation documentation
     Documentation documentation"""
     initializer = K.initializers.HeNormal(seed=0)
