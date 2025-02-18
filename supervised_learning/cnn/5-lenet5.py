@@ -9,53 +9,43 @@ from tensorflow import keras as K
 def lenet5(x, y):
     """Documentation documentation
     Documentation documentation"""
-    init = K.initializers.VarianceScaling(scale=2.0)
-    conv2d_1 = K.layers.Conv2D(
-        filters=6,
-        kernel_size=5,
-        padding='same',
-        activation='relu',
-        kernel_initializer=init
-    )(x)
+    initializer = K.initializers.HeNormal(seed=0)
+    model = K.Sequential()
 
-    max_pooling_1 = K.layers.MaxPooling2D(
-        pool_size=2,
-        strides=2
-    )(conv2d_1)
+    model.add(X)
 
-    conv2d_2 = K.layers.Conv2D(
-        filters=16,
-        kernel_size=5,
-        padding='valid',
-        activation='relu',
-        kernel_initializer=init
-    )(max_pooling_1)
+    model.add(K.layers.Conv2D(filters=6,
+                              kernel_size=5,
+                              padding='same',
+                              kernel_initializer=initializer,
+                              activation='relu'))
 
-    max_pooling_2 = K.layers.MaxPooling2D(
-        pool_size=2,
-        strides=2
-    )(conv2d_2)
+    model.add(K.layers.MaxPooling2D(pool_size=2, strides=2))
 
-    # Flatten tensor to 1D tensor, to match Dense layer dimensions
-    flattened = K.layers.Flatten()(max_pooling_2)
+    model.add(K.layers.Conv2D(filters=16,
+                              kernel_size=5,
+                              padding='valid',
+                              kernel_initializer=initializer,
+                              activation='relu'))
 
-    fc1 = K.layers.Dense(
-        units=120,
-        activation='relu',
-        kernel_initializer=init
-    )(flattened)
+    model.add(K.layers.MaxPooling2D(pool_size=2, strides=2))
 
-    fc2 = K.layers.Dense(
-        units=84,
-        activation='relu',
-        kernel_initializer=init
-    )(fc1)
+    model.add(K.layers.Flatten())
 
-    output = K.layers.Dense(
-        units=10,
-        kernel_initializer=init
-    )(fc2)
+    model.add(K.layers.Dense(units=120,
+                             kernel_initializer=initializer,
+                             activation='relu'))
 
-    softmax = K.activations.softmax(output)
-    loss = K.losses.softmax_cross_entropy(onehot_labels=y, logits=output)
-    return softmax, loss
+    model.add(K.layers.Dense(units=84,
+                             kernel_initializer=initializer,
+                             activation='relu'))
+
+    model.add(K.layers.Dense(units=10,
+                             kernel_initializer=initializer,
+                             activation='softmax'))
+
+    model.compile(optimizer=K.optimizers.Adam(),
+                  loss='categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    return model
