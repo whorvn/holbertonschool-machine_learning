@@ -19,7 +19,7 @@ def inception_block(A_prev, filters):
     )(A_prev)
     
     conv3x3_reduce = K.layers.Conv2D(F3R, kernel_size=(1, 1), padding='same',
-                                     activation='relu')(conv1x1)
+                                     activation='relu')(A_prev)
     
     conv3x3 = K.layers.Conv2D(F3, kernel_size=(3, 3), padding='same',
                               activation='relu')(conv3x3_reduce)
