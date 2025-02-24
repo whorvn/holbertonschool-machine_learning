@@ -9,7 +9,7 @@ from tensorflow import keras as K
 def inception_block(A_prev, filters):
     """Documentation Documentation
     Documentation Documentation"""
-    F1, F3R, F3,F5R, F5, FPP = filters
+    F1, F3R, F3, F5R, F5, FPP = filters
     init = K.initializers.he_normal(seed=None)
     conv1x1 = K.layers.Conv2D(
         F1,
@@ -17,10 +17,10 @@ def inception_block(A_prev, filters):
         padding='same',
         activation='relu',
     )(A_prev)
-    
+
     conv3x3_reduce = K.layers.Conv2D(F3R, kernel_size=(1, 1), padding='same',
                                      activation='relu')(A_prev)
-    
+
     conv3x3 = K.layers.Conv2D(F3, kernel_size=(3, 3), padding='same',
                               activation='relu')(conv3x3_reduce)
 
