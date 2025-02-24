@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Inception Network
+Identity Block
 """
 
 from tensorflow import keras as K
@@ -11,54 +11,50 @@ def identity_block(A_prev, filters):
     Builds an identity block as described in
     'Deep Residual Learning for Image Recognition' (2015).
 
-    This function constructs an identity block as described in
-    the paper. All convolutions inside the block should be
-    followed by batch normalization along the channels axis and
-    a rectified linear activation (ReLU), respectively.
-
-    Arguments:
-    A_prev : tf.Tensor
-        The output from the previous layer.
-    filters : list
-        A list containing the number of filters in each layer
-        of the identity block.
+    Parameters:
+    A_prev : tensor
+        The output of the previous layer.
+    filters : tuple or list
+        Contains F11, F3, F12 respectively:
+            F11 : int
+                Number of filters in the first 1x1 convolution.
+            F3 : int
+                Number of filters in the 3x3 convolution.
+            F12 : int
+                Number of filters in the second 1x1 convolution.
 
     Returns:
-    tf.Tensor
+    tensor
         The activated output of the identity block.
     """
     F11, F3, F12 = filters
 
-    # 1x1 conv. layer
+    init = K.initializers.HeNormal(seed=0)
+
     conv1 = K.layers.Conv2D(filters=F11,
                             kernel_size=(1, 1),
                             strides=(1, 1),
                             padding="same",
-                            kernel_initializer="he_normal")(A_prev)
-    batch_norm1 = K.layers.BatchNormalization(axis=3)(conv1)
-    activation1 = K.layers.Activation("relu")(batch_norm1)
+                            kernel_initializer=init)(A_prev)
 
-    # 3x3 conv. layer
+    norm1 = K.layers.BatchNormalization(axis=-1)(conv1)
+    relu1 = K.layers.Activation(activation="relu")(norm1)
+
     conv2 = K.layers.Conv2D(filters=F3,
                             kernel_size=(3, 3),
                             strides=(1, 1),
                             padding="same",
-                            kernel_initializer="he_normal")(activation1)
-    batch_norm2 = K.layers.BatchNormalization(axis=3)(conv2)
-    activation2 = K.layers.Activation("relu")(batch_norm2)
+                            kernel_initializer=init)(relu1)
+    norm2 = K.layers.BatchNormalization(axis=-1)(conv2)
+    relu2 = K.layers.Activation(activation="relu")(norm2)
 
-    # 1x1 conv. layer
     conv3 = K.layers.Conv2D(filters=F12,
                             kernel_size=(1, 1),
                             strides=(1, 1),
                             padding="same",
-                            kernel_initializer="he_normal")(activation2)
-    batch_norm3 = K.layers.BatchNormalization(axis=3)(conv3)
+                            kernel_initializer=init)(relu2)
+    norm3 = K.layers.BatchNormalization(axis=-1)(conv3)
 
-    # Add input tensor to output tensor
-    add = K.layers.Add()([batch_norm3, A_prev])
+    merged = K.layers.Add()([norm3, A_prev])
 
-    # Activation
-    output = K.layers.Activation("relu")(add)
-
-    return output
+    return K.layers.Activation(activation="relu")(merged)
