@@ -29,20 +29,30 @@ def preprocess_data(X, Y):
     return X_scaled, Y_categorical
 
 
-def create_model():
+from tensorflow.keras.applications import EfficientNetB0
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Flatten, Dropout, GlobalAveragePooling2D
+from tensorflow.keras.optimizers import Adam
+
+def build_model():
     """
-    Creates a simple convolutional neural network model using Keras
-    Returns: model
-    model is a Keras model
+    Builds and returns a transfer learning model using EfficientNetB0 for
+    CIFAR-10 classification.
     """
-    base_model = K.applications.ResNet50(include_top=False, weights='imagenet',
-                                         input_shape=(224, 224, 3))
-    base_model.trainable = False
-    model = K.models.Sequential()
-    model.add(K.layers.UpSampling2D())
-    model.add(base_model)
-    model.add(K.layers.Flatten())
-    model.add(K.layers.Dense(256, activation='relu'))
-    model.add(K.layers.Dropout(0.5))
-    model.add(K.layers.Dense(10, activation='softmax'))
+    base_model = EfficientNetB0(weights="imagenet", include_top=False, input_shape=(224, 224, 3))
+
+    for layer in base_model.layers[:-20]:  # Freeze most layers except the last few
+        layer.trainable = False
+
+    x = base_model.output
+    x = GlobalAveragePooling2D()(x)  # Reduce feature maps to a vector
+    x = Dense(256, activation="relu")(x)
+    x = Dropout(0.3)(x)  # Prevent overfitting
+    x = Dense(10, activation="softmax")(x)  # Output layer for 10 classes
+
+    model = Model(inputs=base_model.input, outputs=x)
+
+    # Compile the model
+    model.compile(optimizer=Adam(learning_rate=0.0001), loss="categorical_crossentropy", metrics=["accuracy"])
+
     return model
