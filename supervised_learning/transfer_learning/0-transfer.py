@@ -152,7 +152,6 @@ def train_model():
         validation_data=val_generator,
         epochs=15,  # Reduced from 20
         callbacks=callbacks,
-        workers=1,  # Use just one worker to minimize memory usage
         verbose=1
     )
     
@@ -176,26 +175,7 @@ def evaluate_model():
     loss, acc = model.evaluate(test_generator, verbose=1)
     print(f"Test Accuracy: {acc * 100:.2f}%")
 
+
 if __name__ == "__main__":
-    # Use memory growth to avoid TensorFlow taking all GPU memory at once
-    gpus = tf.config.experimental.list_physical_devices('GPU')
-    if gpus:
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
-            
-    # Set memory limits
-    tf.config.set_logical_device_configuration(
-        gpus[0] if gpus else None,
-        [tf.config.LogicalDeviceConfiguration(memory_limit=1024)]
-    )
-    
-    # Limit TensorFlow's memory usage
-    physical_devices = tf.config.list_physical_devices('CPU')
-    if physical_devices:
-        tf.config.set_logical_device_configuration(
-            physical_devices[0],
-            [tf.config.LogicalDeviceConfiguration(memory_limit=2048)]
-        )
-    
     train_model()
     evaluate_model()
