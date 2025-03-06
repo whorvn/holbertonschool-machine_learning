@@ -12,7 +12,7 @@ class Yolo:
     """
 
 
-    def __init__(self, model_path, classes_path, class_t, nms_t, anchors):
+   def __init__(self, model_path, classes_path, class_t, nms_t, anchors):
         """
         Initializes the Yolo class.
 
